@@ -1,38 +1,40 @@
-# 🔗 Simple URL Shortener App
-
-This is a small project I built to understand how URL shortening works (like Bitly).  
-You can enter a long URL, and it gives you a short link. When someone clicks the short link, it redirects to the original website.
-
----
-
-## 🛠️ Technologies I Used
-
-### 🔹 Frontend (what user sees)
-- **React.js** (with Vite for faster setup)
-- HTML, CSS, and a little bit of JavaScript
-
-### 🔹 Backend (server logic)
-- **Node.js** with **Express.js**
-
-### 🔹 Database
-- **MongoDB Atlas** (to store original and short URLs)
-
-
-## 🔄 How It Works (Step-by-Step)
-
-1. User opens the webpage and enters a long URL.
-2. When they click the button, the app sends the long URL to the backend.
-3. The backend:
-   - Checks if the URL is valid
-   - Creates a random short ID (like `abc123`)
-   - Saves both the long and short URLs in the database
-4. It sends back the short URL to the frontend.
-5. When someone visits the short URL, the server finds the matching original URL in the database and redirects the user there.
-
----
-
-## 🔌 API Endpoints I Built
-
-### ➕ `POST /shorten`
-This is used when someone wants to create a short URL.
-
+URL Shortener System Design
+Which Tech - Stack Choices
+Cloud Provider: Google Cloud Platform (GCP)
+- Seamless App Engine deployment
+- Free-tier friendly
+- Easy integration with managed services
+Database: MongoDB Atlas (Cloud-hosted NoSQL DB)
+- Schema flexibility, scalable, geo-friendly
+Backend Framework: Node.js with Express
+- Lightweight, fast, perfect for APIs
+Frontend Framework: React.js
+- Component-based, async-friendly, modern
+What Flow - System Flow (Step-by-Step)
+1. User enters a long URL in the React app.
+2. React sends POST to /api/shorten.
+3. Backend checks existing, else generates short code.
+4. Saves in MongoDB, returns short URL.
+5. When clicked, backend redirects and logs analytics.
+6. Dashboard hits /api/analytics/:shortCode for metrics.
+Which APIs - Design of API Endpoints
+1. POST /api/shorten - returns a short URL.
+2. GET /api/redirect/:shortCode - redirects to original URL and logs data.
+3. GET /api/analytics/:shortCode - returns analytics like click counts, locations, timeline.
+How You Will Optimize the Flow
+URL Shortener System Design
+Performance
+- MongoDB indexes, async logging, App Engine Standard
+Scalability
+- Stateless backend, horizontally scalable MongoDB
+Error Handling
+- Proper status codes, try-catch blocks, frontend 404s
+Demo Code - Critical Snippets
+1. Shorten URL Logic
+- Checks DB, uses nanoid, saves and returns.
+2. Redirection with Analytics
+- Looks up URL, logs IP/country, redirects.
+3. Analytics Retrieval
+- Aggregates by country and last 30 days.
+Optional Enhancements
+- Custom aliases, QR codes, authentication, expiry, rate limiting.
